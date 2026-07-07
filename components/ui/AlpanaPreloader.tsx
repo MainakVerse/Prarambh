@@ -309,7 +309,7 @@ export function AlpanaPreloader() {
           className="mt-2 text-xs uppercase tracking-[0.25em] text-ink-muted alpana-fade-in"
           style={{ animationDelay: "0.4s" }}
         >
-          An auspicious beginning
+          An Auspicious Beginning Of Projects
         </p>
       </div>
     </div>
