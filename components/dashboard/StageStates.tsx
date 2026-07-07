@@ -9,7 +9,7 @@ export function StageEmptyState({ stage }: { stage: Stage }) {
       <span className="grid h-14 w-14 place-items-center rounded-2xl bg-primary-100 text-primary-600">
         <StageIcon className="h-6 w-6" />
       </span>
-      <h3 className="text-base font-semibold text-ink">{stage.name} hasn't started yet</h3>
+      <h3 className="text-base font-semibold text-ink">{stage.name} hasn&apos;t started yet</h3>
       <p className="max-w-md text-sm text-ink-body">{stage.purpose}</p>
       <p className="text-xs text-ink-muted">
         Entry criteria: {stage.entryCriteria}
@@ -74,7 +74,7 @@ export function StagePermissionPartialState() {
       </span>
       <h3 className="text-sm font-semibold text-ink">Documents are restricted</h3>
       <p className="max-w-sm text-sm text-ink-muted">
-        You can see this stage's status and timeline, but your role doesn't include document access.
+        You can see this stage&apos;s status and timeline, but your role doesn&apos;t include document access.
         Ask the stage owner to grant you Contributor or Reviewer access.
       </p>
     </div>

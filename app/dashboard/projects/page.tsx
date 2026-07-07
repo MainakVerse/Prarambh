@@ -62,7 +62,7 @@ export default function ProjectsPage() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h1 className="text-xl font-bold text-ink">Saved Projects</h1>
-            <p className="text-sm text-ink-muted">Every project you're tracking, in one gallery.</p>
+            <p className="text-sm text-ink-muted">Every project you&apos;re tracking, in one gallery.</p>
           </div>
           <button
             type="button"

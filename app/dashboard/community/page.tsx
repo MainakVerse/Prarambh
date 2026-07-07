@@ -99,7 +99,7 @@ export default function CommunityPage() {
             ))
           ) : (
             <div className="glass rounded-3xl p-10 text-center text-sm text-ink-muted">
-              Nothing matches "{query}".
+              Nothing matches &quot;{query}&quot;.
             </div>
           )}
         </div>
