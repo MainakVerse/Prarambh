@@ -22,7 +22,8 @@
       "Bash(curl -s http://localhost:3001/)",
       "Bash(curl -s http://localhost:3001/dashboard)",
       "Bash(taskkill //F //PID 28688)",
-      "Bash(curl -s http://localhost:3001/dashboard/project/development)"
+      "Bash(curl -s http://localhost:3001/dashboard/project/development)",
+      "PowerShell(npx next build)"
     ],
     "additionalDirectories": [
       "c:\\Users\\MAINAK CHAUDHURI\\OneDrive\\Desktop\\Prarambh\\app\\(dashboard)\\project"

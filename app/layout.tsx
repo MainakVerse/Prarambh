@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { site } from "@/lib/site";
+import { AlpanaPreloader } from "@/components/ui/AlpanaPreloader";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -53,7 +54,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <AlpanaPreloader />
+        {children}
+      </body>
     </html>
   );
 }
