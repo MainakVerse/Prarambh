@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(node -v)",
+      "PowerShell(npm -v)",
+      "Skill(dataviz)",
+      "Skill(dataviz:*)",
+      "PowerShell(npm install --no-audit --no-fund)",
+      "PowerShell(npm run start)",
+      "PowerShell($r = $null; foreach \\($i in 1..15\\) { try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 5; break } catch { Start-Sleep -Milliseconds 800 } }; if \\($null -eq $r\\) { \"SERVER NOT UP\" } else { \"Status: $\\($r.StatusCode\\)\"; $html = $r.Content; \"H1 present: $\\($html -match 'From Prarambh to launch'\\)\"; \"JSON-LD: $\\($html -match 'application/ld\\\\+json'\\)\"; \"FAQPage schema: $\\($html -match 'FAQPage'\\)\"; \"Navbar: $\\($html -match 'Get Started'\\)\"; \"Pricing: $\\($html -match 'Most popular'\\)\"; \"Stages: $\\($html -match 'Feasibility'\\)\"; \"Footer: $\\($html -match 'All rights reserved'\\)\"; \"HTML bytes: $\\($html.Length\\)\" })",
+      "PowerShell($s = Invoke-WebRequest -Uri \"http://localhost:3000/sitemap.xml\" -UseBasicParsing; $rb = Invoke-WebRequest -Uri \"http://localhost:3000/robots.txt\" -UseBasicParsing; \"sitemap: $\\($s.StatusCode\\)\"; $s.Content; \"robots: $\\($rb.StatusCode\\)\"; $rb.Content)",
+      "PowerShell(Start-Job -ScriptBlock { Set-Location \"c:\\\\Users\\\\MAINAK CHAUDHURI\\\\OneDrive\\\\Desktop\\\\Prarambh\"; npm run start } | Out-Null; $r = $null; foreach \\($i in 1..20\\) { try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 5; break } catch { Start-Sleep -Milliseconds 800 } }; if \\($null -eq $r\\) { \"SERVER NOT UP\" } else { $html = $r.Content; \"Status: $\\($r.StatusCode\\)\"; \"Carousel: $\\($html -match 'aria-roledescription=\\\\\"carousel\\\\\"'\\)\"; \"Tablist: $\\($html -match 'role=\\\\\"tablist\\\\\"'\\)\"; \"Phase 1 of 5: $\\($html -match 'Phase <!-- -->1'\\)\"; \"Define screen: $\\($html -match 'Initiation'\\)\"; \"Gate summary: $\\($html -match 'gates closed'\\)\" }; Get-Job | Stop-Job; Get-Job | Remove-Job -Force)",
+      "PowerShell(npx tsc --noEmit)",
+      "PowerShell(npx next lint --file components/sections/HeroMockup.tsx --file lib/stages.ts)"
+    ]
+  }
+}

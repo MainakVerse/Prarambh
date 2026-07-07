@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-cream-50 text-ink-body antialiased;
+    /* Decorative glows/blobs must never cause sideways scroll on mobile */
+    overflow-x: clip;
+  }
+
+  ::selection {
+    @apply bg-primary-200 text-ink;
+  }
+
+  /* Visible keyboard focus everywhere */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-cream-50 rounded-md;
+  }
+}
+
+@layer components {
+  /* Frosted translucent white surface with 1px inner highlight */
+  .glass {
+    @apply bg-white/60 backdrop-blur-lg border border-white/70 shadow-glass;
+  }
+
+  .glass-strong {
+    @apply bg-white/75 backdrop-blur-xl border border-white/80 shadow-glass-lg;
+  }
+
+  /* Soft-UI extruded surface on cream */
+  .neo {
+    @apply bg-cream-100 shadow-neo;
+  }
+
+  .neo-inset {
+    @apply bg-cream-100 shadow-neo-inset;
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
