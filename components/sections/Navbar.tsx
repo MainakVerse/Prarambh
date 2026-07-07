@@ -82,7 +82,7 @@ export function Navbar() {
           <NeoButton href="#pricing" variant="ghost">
             Sign in
           </NeoButton>
-          <NeoButton href="#cta" variant="primary">
+          <NeoButton href="/dashboard" variant="primary">
             Get Started
           </NeoButton>
         </div>
@@ -136,7 +136,7 @@ export function Navbar() {
               <NeoButton href="#pricing" variant="soft" className="flex-1">
                 Sign in
               </NeoButton>
-              <NeoButton href="#cta" variant="primary" className="flex-1">
+              <NeoButton href="/dashboard" variant="primary" className="flex-1">
                 Get Started
               </NeoButton>
             </li>

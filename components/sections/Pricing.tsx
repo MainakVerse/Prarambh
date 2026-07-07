@@ -111,7 +111,7 @@ export function Pricing() {
                 </ul>
 
                 <NeoButton
-                  href="#cta"
+                  href={tier.name === "Enterprise" ? "#cta" : "/dashboard"}
                   variant={tier.featured ? "primary" : "soft"}
                   className="mt-8 w-full"
                 >

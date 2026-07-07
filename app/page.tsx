@@ -1,3 +1,4 @@
+import { Embroidery } from "@/components/ui/Embroidery";
 import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { TrustStrip } from "@/components/sections/TrustStrip";
@@ -67,6 +68,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <Embroidery />
       <Navbar />
       <main>
         <Hero />

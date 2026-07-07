@@ -1,3 +1,5 @@
+import type { IconKey } from "@/lib/icons";
+
 export type StageStatus =
   | "not-started"
   | "active"
@@ -7,6 +9,8 @@ export type StageStatus =
 
 export interface Stage {
   id: number;
+  /** URL-safe slug used for the /project/[stage] route. */
+  slug: string;
   name: string;
   deliverable: string;
   status: StageStatus;
@@ -14,10 +18,18 @@ export interface Stage {
   owner: string;
   /** What the gate checks before this stage can close. */
   gate: string;
+  icon: IconKey;
+  /** Short blurb for the "not started" teaching empty state. */
+  purpose: string;
+  entryCriteria: string;
+  exitCriteria: string;
+  daysInStage: number;
+  openItems: number;
 }
 
 export interface Phase {
   name: string;
+  icon: IconKey;
   stages: Stage[];
 }
 
@@ -73,42 +85,55 @@ export const statusRibbon: Record<StageStatus, string> = {
 export const phases: Phase[] = [
   {
     name: "Define",
+    icon: "compass",
     stages: [
-      { id: 1, name: "Initiation", deliverable: "Project charter", status: "signed-off", owner: "Sponsor", gate: "Charter approved and budget code issued" },
-      { id: 2, name: "Feasibility", deliverable: "Feasibility report", status: "signed-off", owner: "Business Analyst", gate: "Cost-benefit case cleared by steering committee" },
-      { id: 3, name: "Requirements", deliverable: "BRD / FRS", status: "done", owner: "Business Analyst", gate: "All requirements traced and stakeholder-reviewed" },
+      { id: 1, slug: "initiation", name: "Initiation", deliverable: "Project charter", status: "signed-off", owner: "Sponsor", gate: "Charter approved and budget code issued", icon: "flag", purpose: "Formally kicks off the project: names the sponsor, sets objectives, and issues the budget code that unlocks spend.", entryCriteria: "Business need identified and sponsor assigned", exitCriteria: "Charter signed and budget code issued", daysInStage: 4, openItems: 0 },
+      { id: 2, slug: "feasibility", name: "Feasibility Study", deliverable: "Feasibility report", status: "signed-off", owner: "Business Analyst", gate: "Cost-benefit case cleared by steering committee", icon: "scale", purpose: "Tests whether the project is viable — cost, benefit, risk, and alternatives — before deeper investment.", entryCriteria: "Charter signed off", exitCriteria: "Steering committee clears the cost-benefit case", daysInStage: 6, openItems: 0 },
+      { id: 3, slug: "requirements", name: "Requirements Gathering & Analysis", deliverable: "BRD / FRS", status: "done", owner: "Business Analyst", gate: "All requirements traced and stakeholder-reviewed", icon: "clipboard", purpose: "Captures what the solution must do — business and functional requirements traced to stakeholder needs.", entryCriteria: "Feasibility case approved", exitCriteria: "All requirements traced and reviewed by stakeholders", daysInStage: 9, openItems: 1 },
     ],
   },
   {
     name: "Plan & Design",
+    icon: "calendar",
     stages: [
-      { id: 4, name: "Planning", deliverable: "Project plan & RAID log", status: "done", owner: "Project Manager", gate: "Baseline plan locked, risks logged with owners" },
-      { id: 5, name: "Design", deliverable: "Solution design spec", status: "active", owner: "Solution Architect", gate: "Design review passed with no open majors" },
+      { id: 4, slug: "planning", name: "Planning", deliverable: "Project plan & RAID log", status: "done", owner: "Project Manager", gate: "Baseline plan locked, risks logged with owners", icon: "calendar", purpose: "Builds the baseline schedule, resourcing, and RAID log the rest of the project executes against.", entryCriteria: "Requirements signed off", exitCriteria: "Baseline plan locked, risks logged with owners", daysInStage: 7, openItems: 0 },
+      { id: 5, slug: "design", name: "Design", deliverable: "Solution design spec", status: "active", owner: "Solution Architect", gate: "Design review passed with no open majors", icon: "compass", purpose: "Translates requirements into a solution architecture and detailed design ready for build.", entryCriteria: "Plan baselined", exitCriteria: "Design review passed with zero open major findings", daysInStage: 5, openItems: 3 },
     ],
   },
   {
     name: "Build & Verify",
+    icon: "code",
     stages: [
-      { id: 6, name: "Development", deliverable: "Release notes", status: "active", owner: "Tech Lead", gate: "Feature-complete build with code review done" },
-      { id: 7, name: "Testing", deliverable: "Test plan & UAT sign-off", status: "blocked", owner: "QA Lead", gate: "UAT sign-off — blocked on 2 open severity-1 defects" },
+      { id: 6, slug: "development", name: "Development / Implementation", deliverable: "Release notes", status: "active", owner: "Tech Lead", gate: "Feature-complete build with code review done", icon: "code", purpose: "Implements the design into working software with continuous code review.", entryCriteria: "Design signed off", exitCriteria: "Feature-complete build, all code reviewed", daysInStage: 12, openItems: 5 },
+      { id: 7, slug: "testing", name: "Testing / Quality Assurance", deliverable: "Test plan & UAT sign-off", status: "blocked", owner: "QA Lead", gate: "UAT sign-off — blocked on 2 open severity-1 defects", icon: "checkSquare", purpose: "Verifies the build against requirements through system, integration, and user acceptance testing.", entryCriteria: "Feature-complete build delivered", exitCriteria: "UAT signed off with zero open severity-1 defects", daysInStage: 8, openItems: 2 },
     ],
   },
   {
     name: "Release",
+    icon: "rocket",
     stages: [
-      { id: 8, name: "Deployment", deliverable: "Deployment runbook", status: "not-started", owner: "DevOps Lead", gate: "Runbook rehearsed and rollback path verified" },
-      { id: 9, name: "Training", deliverable: "Training pack", status: "not-started", owner: "Change Manager", gate: "90% of end users trained and assessed" },
-      { id: 10, name: "Go-Live", deliverable: "Go-live checklist", status: "not-started", owner: "Project Manager", gate: "Go / no-go call signed by all workstream leads" },
+      { id: 8, slug: "deployment", name: "Deployment / Release", deliverable: "Deployment runbook", status: "not-started", owner: "DevOps Lead", gate: "Runbook rehearsed and rollback path verified", icon: "truck", purpose: "Prepares and rehearses the production release, including a verified rollback path.", entryCriteria: "UAT signed off", exitCriteria: "Runbook rehearsed, rollback path verified", daysInStage: 0, openItems: 0 },
+      { id: 9, slug: "training", name: "Training & Change Management", deliverable: "Training pack", status: "not-started", owner: "Change Manager", gate: "90% of end users trained and assessed", icon: "graduationCap", purpose: "Prepares end users and support staff to operate and use the new solution.", entryCriteria: "Deployment runbook approved", exitCriteria: "90% of end users trained and assessed", daysInStage: 0, openItems: 0 },
+      { id: 10, slug: "go-live", name: "Go-Live / Transition", deliverable: "Go-live checklist", status: "not-started", owner: "Project Manager", gate: "Go / no-go call signed by all workstream leads", icon: "rocket", purpose: "Executes the cutover to production with a formal go/no-go decision.", entryCriteria: "Training completion threshold met", exitCriteria: "Go/no-go call signed by all workstream leads", daysInStage: 0, openItems: 0 },
     ],
   },
   {
     name: "Run & Close",
+    icon: "archive",
     stages: [
-      { id: 11, name: "Operations", deliverable: "Ops handover doc", status: "not-started", owner: "Ops Manager", gate: "Support team accepts handover with SLA agreed" },
-      { id: 12, name: "Monitoring", deliverable: "KPI dashboard spec", status: "not-started", owner: "Product Owner", gate: "KPIs green for 30 consecutive days" },
-      { id: 13, name: "Closure", deliverable: "Closure report", status: "not-started", owner: "Sponsor", gate: "Lessons learned filed, budget reconciled, project archived" },
+      { id: 11, slug: "operations", name: "Operations & Maintenance", deliverable: "Ops handover doc", status: "not-started", owner: "Ops Manager", gate: "Support team accepts handover with SLA agreed", icon: "server", purpose: "Hands the live solution over to the operations team under an agreed SLA.", entryCriteria: "Go-live complete", exitCriteria: "Support team accepts handover, SLA agreed", daysInStage: 0, openItems: 0 },
+      { id: 12, slug: "monitoring", name: "Monitoring & Control", deliverable: "KPI dashboard spec", status: "not-started", owner: "Product Owner", gate: "KPIs green for 30 consecutive days", icon: "activity", purpose: "Tracks live KPIs to confirm the solution performs as intended in production.", entryCriteria: "Ops handover accepted", exitCriteria: "KPIs green for 30 consecutive days", daysInStage: 0, openItems: 0 },
+      { id: 13, slug: "closure", name: "Closure", deliverable: "Closure report", status: "not-started", owner: "Sponsor", gate: "Lessons learned filed, budget reconciled, project archived", icon: "archive", purpose: "Formally closes the project — lessons learned, budget reconciliation, and archival.", entryCriteria: "KPIs stable for 30 days", exitCriteria: "Lessons learned filed, budget reconciled, archived", daysInStage: 0, openItems: 0 },
     ],
   },
 ];
 
 export const allStages: Stage[] = phases.flatMap((p) => p.stages);
+
+export function findStageBySlug(slug: string): Stage | undefined {
+  return allStages.find((s) => s.slug === slug);
+}
+
+export function findPhaseByStageSlug(slug: string): Phase | undefined {
+  return phases.find((p) => p.stages.some((s) => s.slug === slug));
+}

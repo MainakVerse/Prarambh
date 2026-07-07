@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Embroidery } from "@/components/ui/Embroidery";
 import { site } from "@/lib/site";
 import "@/styles/globals.css";
 
@@ -54,10 +53,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="font-sans">
-        <Embroidery />
-        {children}
-      </body>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

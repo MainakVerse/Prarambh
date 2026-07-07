@@ -30,7 +30,7 @@ export function CtaBand() {
               </p>
               <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
                 <NeoButton
-                  href="#pricing"
+                  href="/dashboard"
                   variant="primary"
                   size="lg"
                   className="w-full sm:w-auto"

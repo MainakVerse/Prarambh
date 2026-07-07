@@ -14,7 +14,7 @@ function EmbroideryStrip({ side }: { side: "left" | "right" }) {
     <div
       aria-hidden
       className={cn(
-        "pointer-events-none fixed inset-y-0 z-40 hidden w-10 xl:block",
+        "pointer-events-none fixed inset-y-0 z-[60] hidden w-10 xl:block",
         side === "left" ? "left-0" : "right-0 -scale-x-100"
       )}
     >
