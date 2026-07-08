@@ -1,4 +1,5 @@
 import { NeoButton } from "@/components/ui/NeoButton";
+import { AuthCtaButton } from "@/components/auth/AuthCtaButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { GlassCard } from "@/components/ui/GlassCard";
 
@@ -29,14 +30,14 @@ export function CtaBand() {
                 for 3 projects — no credit card, no sales call.
               </p>
               <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-                <NeoButton
-                  href="/dashboard"
+                <AuthCtaButton
+                  view="signup"
                   variant="primary"
                   size="lg"
                   className="w-full sm:w-auto"
                 >
                   Start Free
-                </NeoButton>
+                </AuthCtaButton>
                 <NeoButton
                   href="#how-it-works"
                   variant="soft"

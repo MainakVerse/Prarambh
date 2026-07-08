@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
 import { NeoButton } from "@/components/ui/NeoButton";
+import { useAuthModal } from "@/components/auth/AuthModalProvider";
 
 const navLinks = [
   { label: "Product", href: "#product" },
@@ -34,6 +35,7 @@ function Wordmark() {
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { openAuth } = useAuthModal();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -79,10 +81,10 @@ export function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-2 md:flex">
-          <NeoButton href="#pricing" variant="ghost">
+          <NeoButton onClick={() => openAuth("signin")} variant="ghost">
             Sign in
           </NeoButton>
-          <NeoButton href="/dashboard" variant="primary">
+          <NeoButton onClick={() => openAuth("signup")} variant="primary">
             Get Started
           </NeoButton>
         </div>
@@ -133,10 +135,24 @@ export function Navbar() {
               </li>
             ))}
             <li className="mt-2 flex gap-3 px-4 pb-2">
-              <NeoButton href="#pricing" variant="soft" className="flex-1">
+              <NeoButton
+                onClick={() => {
+                  setMenuOpen(false);
+                  openAuth("signin");
+                }}
+                variant="soft"
+                className="flex-1"
+              >
                 Sign in
               </NeoButton>
-              <NeoButton href="/dashboard" variant="primary" className="flex-1">
+              <NeoButton
+                onClick={() => {
+                  setMenuOpen(false);
+                  openAuth("signup");
+                }}
+                variant="primary"
+                className="flex-1"
+              >
                 Get Started
               </NeoButton>
             </li>

@@ -3,7 +3,11 @@ import { type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 interface NeoButtonProps {
-  href: string;
+  /** With href renders a Link; without it renders a <button>. */
+  href?: string;
+  onClick?: () => void;
+  type?: "button" | "submit";
+  disabled?: boolean;
   children: ReactNode;
   variant?: "primary" | "soft" | "ghost";
   size?: "md" | "lg";
@@ -35,17 +39,32 @@ const variants = {
 
 export function NeoButton({
   href,
+  onClick,
+  type = "button",
+  disabled,
   children,
   variant = "primary",
   size = "md",
   className,
 }: NeoButtonProps) {
+  const classes = cn(
+    base,
+    sizes[size],
+    variants[variant],
+    disabled && "pointer-events-none opacity-60",
+    className
+  );
+
+  if (href) {
+    return (
+      <Link href={href} onClick={onClick} className={classes}>
+        {children}
+      </Link>
+    );
+  }
   return (
-    <Link
-      href={href}
-      className={cn(base, sizes[size], variants[variant], className)}
-    >
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
       {children}
-    </Link>
+    </button>
   );
 }

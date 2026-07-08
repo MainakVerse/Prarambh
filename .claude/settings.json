@@ -23,10 +23,14 @@
       "Bash(curl -s http://localhost:3001/dashboard)",
       "Bash(taskkill //F //PID 28688)",
       "Bash(curl -s http://localhost:3001/dashboard/project/development)",
-      "PowerShell(npx next build)"
+      "PowerShell(npx next build)",
+      "Bash(awk -F= '/^[A-Z_][A-Z0-9_]*=/{ if \\(seen[$1]++\\) next } {print}' .env)",
+      "Bash(npx -y tsx \"C:/Users/MAINAK~1/AppData/Local/Temp/claude/c--Users-MAINAK-CHAUDHURI-OneDrive-Desktop-Prarambh/f284b63f-68f0-47a9-b51d-d537fc0dbe9b/scratchpad/auth-e2e.ts\")",
+      "Bash(awk -F= '/^\\(JWT_|AUTH_SECRET|NEXT_PUBLIC_APP_URL|EMAIL_ENABLED\\)/{print $1 \" len=\" length\\(substr\\($0, index\\($0,\"=\"\\)+1\\)\\)}' .env)"
     ],
     "additionalDirectories": [
-      "c:\\Users\\MAINAK CHAUDHURI\\OneDrive\\Desktop\\Prarambh\\app\\(dashboard)\\project"
+      "c:\\Users\\MAINAK CHAUDHURI\\OneDrive\\Desktop\\Prarambh\\app\\(dashboard)\\project",
+      "c:\\Users\\MAINAK CHAUDHURI\\OneDrIVE\\Desktop\\Prarambh\\lib\\auth"
     ]
   }
 }

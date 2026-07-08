@@ -23,8 +23,29 @@ function useBreadcrumb() {
   return ["Overview"];
 }
 
+type SessionUser = {
+  id: string;
+  email: string;
+  name?: string | null;
+  image?: string | null;
+};
+
+/** "Jane Doe" -> "JD"; falls back to the email's first letter. */
+function initialsFor(user: SessionUser | null): string {
+  if (!user) return "";
+  const name = user.name?.trim();
+  if (name) {
+    const parts = name.split(/\s+/).filter(Boolean);
+    const letters = parts.length >= 2 ? [parts[0][0], parts[parts.length - 1][0]] : [parts[0][0]];
+    return letters.join("").toUpperCase();
+  }
+  return user.email?.[0]?.toUpperCase() ?? "?";
+}
+
 function AvatarMenu() {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<SessionUser | null>(null);
+  const [imgFailed, setImgFailed] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,6 +56,21 @@ function AvatarMenu() {
     return () => document.removeEventListener("mousedown", onClick);
   }, []);
 
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/auth/session")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.user) setUser(data.user);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const showImage = user?.image && !imgFailed;
+
   return (
     <div ref={ref} className="relative">
       <button
@@ -43,16 +79,27 @@ function AvatarMenu() {
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Account menu"
-        className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-accent-400 to-primary-500 text-sm font-bold text-white shadow-neo-xs"
+        className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full bg-gradient-to-br from-accent-400 to-primary-500 text-sm font-bold text-white shadow-neo-xs"
       >
-        MC
+        {showImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={user.image as string}
+            alt=""
+            className="h-full w-full object-cover"
+            referrerPolicy="no-referrer"
+            onError={() => setImgFailed(true)}
+          />
+        ) : (
+          initialsFor(user)
+        )}
       </button>
       {open && (
         <ul
           role="menu"
           className="absolute right-0 top-full z-30 mt-1.5 w-48 rounded-2xl border border-white/70 bg-white/95 p-1.5 shadow-glass-lg backdrop-blur-xl"
         >
-          {["Profile", "Team & Roles", "Billing", "Sign out"].map((label) => (
+          {["Profile", "Team & Roles", "Billing"].map((label) => (
             <li key={label} role="none">
               <Link
                 role="menuitem"
@@ -63,6 +110,22 @@ function AvatarMenu() {
               </Link>
             </li>
           ))}
+          <li role="none">
+            <button
+              role="menuitem"
+              type="button"
+              onClick={async () => {
+                // Server-side logout: revokes this device's refresh-token
+                // family in Redis and clears both auth cookies. A client-only
+                // redirect would leave the refresh token alive for 30 days.
+                await fetch("/api/auth/refresh", { method: "DELETE" }).catch(() => {});
+                window.location.href = "/";
+              }}
+              className="block w-full rounded-xl px-3 py-2 text-left text-sm text-ink-body hover:bg-cream-50 hover:text-ink"
+            >
+              Sign out
+            </button>
+          </li>
         </ul>
       )}
     </div>

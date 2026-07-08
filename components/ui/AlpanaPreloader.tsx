@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
  * the draw-in reads as a deliberate flourish rather than a flash.
  */
 
-const MIN_SHOW_MS = 2200;
+const MIN_SHOW_MS = 450;
 const FADE_MS = 700;
 
 /** Eight-fold symmetric copies of a motif group. */

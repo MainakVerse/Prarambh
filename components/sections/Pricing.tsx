@@ -1,4 +1,5 @@
 import { NeoButton } from "@/components/ui/NeoButton";
+import { AuthCtaButton } from "@/components/auth/AuthCtaButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/cn";
@@ -110,13 +111,23 @@ export function Pricing() {
                   ))}
                 </ul>
 
-                <NeoButton
-                  href={tier.name === "Enterprise" ? "#cta" : "/dashboard"}
-                  variant={tier.featured ? "primary" : "soft"}
-                  className="mt-8 w-full"
-                >
-                  {tier.cta}
-                </NeoButton>
+                {tier.name === "Enterprise" ? (
+                  <NeoButton
+                    href="#cta"
+                    variant={tier.featured ? "primary" : "soft"}
+                    className="mt-8 w-full"
+                  >
+                    {tier.cta}
+                  </NeoButton>
+                ) : (
+                  <AuthCtaButton
+                    view="signup"
+                    variant={tier.featured ? "primary" : "soft"}
+                    className="mt-8 w-full"
+                  >
+                    {tier.cta}
+                  </AuthCtaButton>
+                )}
               </div>
             </Reveal>
           ))}

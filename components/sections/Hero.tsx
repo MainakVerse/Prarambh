@@ -1,4 +1,5 @@
 import { NeoButton } from "@/components/ui/NeoButton";
+import { AuthCtaButton } from "@/components/auth/AuthCtaButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { HeroMockup } from "./HeroMockup";
 
@@ -34,8 +35,8 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-            <NeoButton
-              href="/dashboard"
+            <AuthCtaButton
+              view="signup"
               variant="primary"
               size="lg"
               className="w-full sm:w-auto"
@@ -54,7 +55,7 @@ export function Hero() {
               >
                 <path d="M3 8h10M9 4l4 4-4 4" />
               </svg>
-            </NeoButton>
+            </AuthCtaButton>
             <NeoButton
               href="#how-it-works"
               variant="soft"
